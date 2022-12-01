@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:padding="10dp">
+
+    <EditText
+        android:id="@+id/nomeEtMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nome"
+        android:layout_margin="5dp" />
+
+    <EditText
+        android:id="@+id/anoLancamentoEtMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ano_de_lan_amento"
+        android:layout_margin="5dp"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/estudioEtMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/estudio_opcional"
+        android:layout_margin="5dp" />
+
+
+    <EditText
+        android:id="@+id/produtoraEtMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/produtora_opcional"
+        android:layout_margin="5dp" />
+
+    <EditText
+        android:id="@+id/duracaoEtMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/duracao"
+        android:layout_margin="5dp"
+        android:inputType="number" />
+
+    <CheckBox
+        android:id="@+id/checkFlagMv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j_assisti"
+        android:checked="false"
+        android:layout_margin="5dp" />
+
+    <EditText
+        android:id="@+id/notaEtMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nota_"
+        android:visibility="gone"
+        android:layout_margin="5dp"
+        android:inputType="number" />
+
+    <Spinner
+        android:id="@+id/gerenoSpinnerMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/genero"
+        android:layout_margin="5dp"/>
+
+    <Button
+        android:id="@+id/salvarMovieBt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/salvar_filme"
+        android:layout_marginTop="20dp" />
+</LinearLayout>
