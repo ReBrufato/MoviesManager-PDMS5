@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MoviesManager</string>
+    <string name="filme">Filme:</string>
+    <string name="lan_amento">Lançamento:</string>
+    <string name="nota">Nota:</string>
+    <string name="dura_o">Duração:</string>
 </resources>
