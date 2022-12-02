@@ -3,8 +3,10 @@ package com.example.moviesmanager.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
@@ -87,6 +90,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Menu de contexto
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        menuInflater.inflate(R.menu.context_menu_main, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+
+        return when(item.itemId) {
+            R.id.removeMovie -> {
+                movieslList.removeAt(position)
+                movieAdapter.notifyDataSetChanged()
+                true
+            }
+            else -> {false}
+        }
+    }
+
     private fun populaListaMovies(){
         movieslList.add(
             Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", 101, false, null, "Ação")
@@ -95,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             Movie(2, "O Pequenino", "2006", null, "Columbia Pictures", 98, false, null, "Comédia")
         )
         movieslList.add(
-            Movie(1, "Hannibal", "2001", null, "Universal Studios", 131, false, null, "Crime")
+            Movie(3, "Hannibal", "2001", null, "Universal Studios", 131, true, 7.0, "Crime")
         )
     }
 }

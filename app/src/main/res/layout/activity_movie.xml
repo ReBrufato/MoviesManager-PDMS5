@@ -67,6 +67,14 @@ android:padding="10dp">
         android:entries="@array/genero"
         android:layout_margin="5dp"/>
 
+    <EditText
+        android:id="@+id/generoTextMv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:visibility="gone"
+        android:layout_margin="5dp" />
+
     <Button
         android:id="@+id/salvarMovieBt"
         android:layout_width="match_parent"

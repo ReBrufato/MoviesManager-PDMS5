@@ -8,10 +8,10 @@ data class Movie(
     val id: Int,
     var nome: String,
     var anoLancamento: String,
-    var estudio: String?,//pode ser null, pois pode ser produtora
-    var produtora: String?,//pode ser null, pois pode ser estúdio
+    var estudio: String?,
+    var produtora: String?,
     var duracao: Int,
-    var flag: Boolean,//pode ser null
+    var flag: Boolean,
     var nota: Double?,
     var genero: String,
 ): Parcelable
