@@ -10,7 +10,7 @@ data class Movie(
     var anoLancamento: String,
     var estudio: String?,
     var produtora: String?,
-    var duracao: Int,
+    var duracao: String,
     var flag: Boolean,
     var nota: Double?,
     var genero: String,

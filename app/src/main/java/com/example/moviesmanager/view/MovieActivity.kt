@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import com.example.moviesmanager.R
 import com.example.moviesmanager.databinding.ActivityMovieBinding
 import com.example.moviesmanager.model.Constants.EXTRA_MOVIE
 import com.example.moviesmanager.model.Constants.VIEW_MOVIE
@@ -35,6 +38,9 @@ class MovieActivity : AppCompatActivity() {
         val viewMovie = intent.getBooleanExtra(VIEW_MOVIE,false)
         receivedMovie?.let{_receivedMovie ->
             with(_receivedMovie){
+                //o nome nuunca será editável
+                amb.nomeEtMv.isEnabled = false
+
                 amb.nomeEtMv.setText(nome)
                 amb.anoLancamentoEtMv.setText(anoLancamento)
 
@@ -64,20 +70,8 @@ class MovieActivity : AppCompatActivity() {
                     amb.notaEtMv.setText(nota.toString())
                 }
 
-                //tratamento gênero
-                amb.gerenoSpinnerMv.visibility = View.GONE
-
-                amb.generoTextMv.visibility = View.VISIBLE
-                amb.generoTextMv.setText(genero)
-
-                //FAZER PARTE DO SPINNER
-                amb.salvarMovieBt.visibility = View.GONE
-
                 //para visualizar detalhes, desativa edição
-
-                //trata visualização de detalhes
                 if(viewMovie){
-                    amb.nomeEtMv.isEnabled = false
                     amb.anoLancamentoEtMv.isEnabled = false
                     amb.estudioEtMv.isEnabled = false
                     amb.produtoraEtMv.isEnabled = false
@@ -85,12 +79,25 @@ class MovieActivity : AppCompatActivity() {
                     amb.notaEtMv.isEnabled = false
                     amb.checkFlagMv.isEnabled = false
                     amb.generoTextMv.isEnabled = false
-                }
+                    amb.salvarMovieBt.visibility = View.GONE
 
+                    //tratamento gênero
+                    amb.generoSpinnerMv.visibility = View.GONE
+                    amb.generoTextMv.visibility = View.VISIBLE
+                    amb.generoTextMv.setText(genero)
+                }
             }
         }
 
+        //captura valor do spinner
+        var generoSelecionado: String = ""
 
+        amb.generoSpinnerMv.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    generoSelecionado = parent?.getItemAtPosition(position).toString()
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
 
         amb.salvarMovieBt.setOnClickListener {
             var nota: Double?
@@ -105,13 +112,13 @@ class MovieActivity : AppCompatActivity() {
             val movie = Movie(
                 id = receivedMovie?.id?: Random(System.currentTimeMillis()).nextInt(),
                 nome = amb.nomeEtMv.text.toString(),
-                anoLancamento = amb.anoLancamentoEtMv.toString(),
+                anoLancamento = amb.anoLancamentoEtMv.text.toString(),
                 estudio = amb.estudioEtMv.text.toString(),
                 produtora = amb.produtoraEtMv.text.toString(),
-                duracao = amb.duracaoEtMv.text.toString().toInt(),
+                duracao = amb.duracaoEtMv.text.toString(),
                 flag = amb.checkFlagMv.isChecked,
                 nota = nota,
-                genero = amb.gerenoSpinnerMv.toString()
+                genero = generoSelecionado
             )
 
             val resultIntent = Intent()

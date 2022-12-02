@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.moviesmanager.R
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                     //edição
                     if(position != -1) {
                         movieslList[position] = _movie
+                        Toast.makeText(this@MainActivity, movie.toString(), Toast.LENGTH_SHORT).show()
                     }
                     //adição
                     else{
@@ -107,6 +109,13 @@ class MainActivity : AppCompatActivity() {
                 movieslList.removeAt(position)
                 movieAdapter.notifyDataSetChanged()
                 true
+            }R.id.editMovie ->{
+                val movie = movieslList[position]
+                val movieIntent = Intent(this, MovieActivity::class.java)
+                movieIntent.putExtra(EXTRA_MOVIE, movie)
+                movieIntent.putExtra(VIEW_MOVIE, false)
+                marl.launch(movieIntent)
+                true
             }
             else -> {false}
         }
@@ -114,13 +123,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun populaListaMovies(){
         movieslList.add(
-            Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", 101, false, null, "Ação")
+            Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", "101", false, null, "Ação")
         )
         movieslList.add(
-            Movie(2, "O Pequenino", "2006", null, "Columbia Pictures", 98, false, null, "Comédia")
+            Movie(2, "O Pequenino", "2006", null, "Columbia Pictures", "98", false, null, "Comédia")
         )
         movieslList.add(
-            Movie(3, "Hannibal", "2001", null, "Universal Studios", 131, true, 7.0, "Crime")
+            Movie(3, "Hannibal", "2001", null, "Universal Studios", "131", true, 7.0, "Crime")
         )
     }
 }
