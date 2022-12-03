@@ -18,6 +18,7 @@ import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constants.EXTRA_MOVIE
 import com.example.moviesmanager.model.Constants.VIEW_MOVIE
 import com.example.moviesmanager.model.entity.Movie
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,17 +55,18 @@ class MainActivity : AppCompatActivity() {
                 val movie = result.data?.getParcelableExtra<Movie>(EXTRA_MOVIE)
 
                 movie?.let {_movie->
-                    if (_movie.id != null){
-                        val position = movieslList.indexOfFirst { it.id == _movie.id }
+                    val position = movieslList.indexOfFirst { it.id == _movie.id }
+                    val verificaNome = movieslList.indexOfFirst { it.nome == _movie.nome }
 
-                        //edição
-                        if(position != -1) {
-                            movieController.editMovie(_movie)
+                    if(position != -1) {
+                        movieController.editMovie(_movie)
+                    } else{
+                        if(verificaNome == -1){
+                            movieController.insertMovie(_movie)
+                        }else{
+                            Toast.makeText(this, "Filme já existe na lista !!!", Toast.LENGTH_LONG).show()
                         }
-                    }
-                    //adição
-                    else{
-                        movieController.insertMovie(_movie)
+
                     }
                     movieAdapter.notifyDataSetChanged()
                 }
@@ -117,7 +119,6 @@ class MainActivity : AppCompatActivity() {
                 movieController.removeMovie(movie)
                 true
             }R.id.editMovie ->{
-                val movie = movieslList[position]
                 val movieIntent = Intent(this, MovieActivity::class.java)
                 movieIntent.putExtra(EXTRA_MOVIE, movie)
                 movieIntent.putExtra(VIEW_MOVIE, false)
@@ -129,15 +130,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun populaListaMovies(){
-        movieslList.add(
-            Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", "101", false, null, "Ação")
-        )
-        movieslList.add(
-            Movie(2, "O Pequenino", "2006", null, "Columbia Pictures", "98", false, null, "Comédia")
-        )
-        movieslList.add(
-            Movie(3, "Hannibal", "2001", null, "Universal Studios", "131", true, 7.0, "Crime")
-        )
+        movieController.getMovies()
+
+//        movieslList.add(
+//            Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", "101", false, null, "Ação")
+//        )
+//        movieslList.add(
+//            Movie(2, "O Pequenino", "2006", null, "Columbia Pictures", "98", false, null, "Comédia")
+//        )
+//        movieslList.add(
+//            Movie(3, "Hannibal", "2001", null, "Universal Studios", "131", true, 7.0, "Crime")
+//        )
+
+        var movie1 = Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", "101", false, null, "Ação")
+        var movie2 = Movie(2, "O Pequenino", "2006", null, "Columbia Pictures", "98", false, null, "Comédia")
+        var movie3 = Movie(3, "Hannibal", "2001", null, "Universal Studios", "131", true, 7.0, "Crime")
+
+ //       movieController.insertMovie(movie1)
+//        movieController.insertMovie(movie2)
+//        movieController.insertMovie(movie3)
     }
 
     //limpa lista de filmes e popula de novo com dados do banco

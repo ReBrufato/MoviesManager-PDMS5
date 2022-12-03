@@ -32,7 +32,7 @@ class MovieAdapter(context: Context, private val moviesList: MutableList<Movie>)
 
         with(movieTileView?.tag as TileMovieHolder){
             nomeTileMv.text = "Filme: " + movie.nome
-            duracaoTileMv.text = "Duração: " + movie.duracao.toString() + " min"
+            duracaoTileMv.text = "Duração: " + movie.duracao.toString()
 
             //verifica se o usuário deu nota para o filme
             if (movie.nota == null){

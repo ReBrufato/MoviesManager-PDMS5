@@ -23,7 +23,6 @@ class MovieRoomController(private val mainActivity: MainActivity) {
             movieDaoImpl.createMovie(movie)
             getMovies()
         }.start()
-
     }
 
     fun getMovies() {
