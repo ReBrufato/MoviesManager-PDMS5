@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import com.example.moviesmanager.R
 import com.example.moviesmanager.databinding.ActivityMovieBinding
 import com.example.moviesmanager.model.Constants.EXTRA_MOVIE
 import com.example.moviesmanager.model.Constants.VIEW_MOVIE
-import com.example.moviesmanager.model.Movie
+import com.example.moviesmanager.model.entity.Movie
 import kotlin.random.Random
 
 

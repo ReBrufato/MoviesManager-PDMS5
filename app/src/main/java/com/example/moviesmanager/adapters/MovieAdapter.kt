@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.moviesmanager.R
-import com.example.moviesmanager.model.Movie
+import com.example.moviesmanager.model.entity.Movie
 
 class MovieAdapter(context: Context, private val moviesList: MutableList<Movie>): ArrayAdapter<Movie>(context, R.layout.tile_movie, moviesList){
 

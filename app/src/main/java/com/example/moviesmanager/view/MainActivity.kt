@@ -16,7 +16,7 @@ import com.example.moviesmanager.adapters.MovieAdapter
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constants.EXTRA_MOVIE
 import com.example.moviesmanager.model.Constants.VIEW_MOVIE
-import com.example.moviesmanager.model.Movie
+import com.example.moviesmanager.model.entity.Movie
 
 class MainActivity : AppCompatActivity() {
 
