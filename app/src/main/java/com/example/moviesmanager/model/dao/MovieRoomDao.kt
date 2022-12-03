@@ -1,11 +1,13 @@
 package com.example.moviesmanager.model.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.moviesmanager.model.entity.Movie
 
+@Dao
 interface MovieRoomDao {
     companion object Constant{
         //local de armazenamento de dados do banco
@@ -26,8 +28,8 @@ interface MovieRoomDao {
     fun retrieveMovies():MutableList<Movie>
 
     @Update
-    fun updateMovie(contact: Movie): Int
+    fun updateMovie(movie: Movie): Int
 
     @Delete
-    fun deleteMovie(contact: Movie): Int
+    fun deleteMovie(movie: Movie): Int
 }

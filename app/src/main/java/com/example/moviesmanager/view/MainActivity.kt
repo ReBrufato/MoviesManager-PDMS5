@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.moviesmanager.R
 import com.example.moviesmanager.adapters.MovieAdapter
+import com.example.moviesmanager.controller.MovieRoomController
 import com.example.moviesmanager.databinding.ActivityMainBinding
 import com.example.moviesmanager.model.Constants.EXTRA_MOVIE
 import com.example.moviesmanager.model.Constants.VIEW_MOVIE
@@ -29,6 +30,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var movieAdapter: MovieAdapter
 
     private lateinit var marl: ActivityResultLauncher<Intent>
+
+    //controller para o banco
+    private val movieController: MovieRoomController by lazy {
+        MovieRoomController(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,16 +54,17 @@ class MainActivity : AppCompatActivity() {
                 val movie = result.data?.getParcelableExtra<Movie>(EXTRA_MOVIE)
 
                 movie?.let {_movie->
-                    val position = movieslList.indexOfFirst { it.id == _movie.id }
+                    if (_movie.id != null){
+                        val position = movieslList.indexOfFirst { it.id == _movie.id }
 
-                    //edição
-                    if(position != -1) {
-                        movieslList[position] = _movie
-                        Toast.makeText(this@MainActivity, movie.toString(), Toast.LENGTH_SHORT).show()
+                        //edição
+                        if(position != -1) {
+                            movieController.editMovie(_movie)
+                        }
                     }
                     //adição
                     else{
-                        movieslList.add(_movie)
+                        movieController.insertMovie(_movie)
                     }
                     movieAdapter.notifyDataSetChanged()
                 }
@@ -103,11 +110,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+        val movie = movieslList[position]
 
         return when(item.itemId) {
             R.id.removeMovie -> {
-                movieslList.removeAt(position)
-                movieAdapter.notifyDataSetChanged()
+                movieController.removeMovie(movie)
                 true
             }R.id.editMovie ->{
                 val movie = movieslList[position]
@@ -131,5 +138,12 @@ class MainActivity : AppCompatActivity() {
         movieslList.add(
             Movie(3, "Hannibal", "2001", null, "Universal Studios", "131", true, 7.0, "Crime")
         )
+    }
+
+    //limpa lista de filmes e popula de novo com dados do banco
+    fun atualizaListaFilmes(_movieList: MutableList<Movie>){
+        movieslList.clear()
+        movieslList.addAll(_movieList)
+        movieAdapter.notifyDataSetChanged()
     }
 }
