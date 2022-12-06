@@ -8,7 +8,7 @@ import com.example.moviesmanager.model.database.MovieRoomDaoDatabase
 import com.example.moviesmanager.model.entity.Movie
 import com.example.moviesmanager.view.MainActivity
 
-class MovieRoomController(private val mainActivity: MainActivity, private var tipoOrdenacao: String) {
+class MovieRoomController(private val mainActivity: MainActivity) {
 
     private val movieDaoImpl: MovieRoomDao by lazy {
         Room.databaseBuilder(
@@ -18,7 +18,7 @@ class MovieRoomController(private val mainActivity: MainActivity, private var ti
         ).build().getMovieRoomDao()
     }
 
-    fun insertMovie(movie: Movie) {
+    fun insertMovie(movie: Movie, tipoOrdenacao: String) {
         Thread{
             movieDaoImpl.createMovie(movie)
             getMovies(tipoOrdenacao)
@@ -49,14 +49,14 @@ class MovieRoomController(private val mainActivity: MainActivity, private var ti
 
     fun getMovie(id: Int) = movieDaoImpl.retrieveMovie(id)
 
-    fun editMovie(movie: Movie) {
+    fun editMovie(movie: Movie, tipoOrdenacao: String) {
         Thread{
             movieDaoImpl.updateMovie(movie)
             getMovies(tipoOrdenacao)
         }.start()
     }
 
-    fun removeMovie(movie: Movie) {
+    fun removeMovie(movie: Movie, tipoOrdenacao: String) {
         Thread{
             movieDaoImpl.deleteMovie(movie)
             getMovies(tipoOrdenacao)

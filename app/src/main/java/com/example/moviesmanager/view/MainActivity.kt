@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     //controller para o banco
     private val movieController: MovieRoomController by lazy {
-        MovieRoomController(this, tipoOrdenacao)
+        MovieRoomController(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,10 +62,10 @@ class MainActivity : AppCompatActivity() {
                     val verificaNome = movieslList.indexOfFirst { it.nome == _movie.nome }
 
                     if(position != -1) {
-                        movieController.editMovie(_movie)
+                        movieController.editMovie(_movie, tipoOrdenacao)
                     } else{
                         if(verificaNome == -1){
-                            movieController.insertMovie(_movie)
+                            movieController.insertMovie(_movie, tipoOrdenacao)
                         }else{
                             Toast.makeText(this, "Filme já existe na lista !!!", Toast.LENGTH_LONG).show()
                         }
@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 
         return when(item.itemId) {
             R.id.removeMovie -> {
-                movieController.removeMovie(movie)
+                movieController.removeMovie(movie, tipoOrdenacao)
                 true
             }R.id.editMovie ->{
                 val movieIntent = Intent(this, MovieActivity::class.java)
