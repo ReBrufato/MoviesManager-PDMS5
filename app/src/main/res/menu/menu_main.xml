@@ -8,4 +8,22 @@
         android:title="@string/adicionar_filme"
         app:showAsAction="never"/>
 
+
+    <item android:id="@+id/ordenacao"
+        android:title="Ordenar por" >
+        <menu>
+            <item
+                android:id="@+id/ordenarNome"
+                android:icon="@drawable/ic_action_add_movie"
+                android:title="@string/ordenar_por_nome"
+                app:showAsAction="never"/>
+
+            <item
+                android:id="@+id/ordenarNota"
+                android:icon="@drawable/ic_action_add_movie"
+                android:title="@string/ordenar_por_nota"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
+
 </menu>

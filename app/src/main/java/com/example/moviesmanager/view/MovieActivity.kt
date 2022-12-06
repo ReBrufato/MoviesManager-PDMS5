@@ -36,7 +36,7 @@ class MovieActivity : AppCompatActivity() {
         val viewMovie = intent.getBooleanExtra(VIEW_MOVIE,false)
         receivedMovie?.let{_receivedMovie ->
             with(_receivedMovie){
-                //o nome nuunca será editável
+                //o nome nunca será editável
                 amb.nomeEtMv.isEnabled = false
 
                 amb.nomeEtMv.setText(nome)
@@ -56,7 +56,7 @@ class MovieActivity : AppCompatActivity() {
                     amb.produtoraEtMv.setText(produtora)
                 }
 
-                amb.duracaoEtMv.setText(duracao.toString() + " min")
+                amb.duracaoEtMv.setText(duracao.toString())
 
                 //tratamento da flag e nota
                 if(flag == true){
@@ -65,7 +65,13 @@ class MovieActivity : AppCompatActivity() {
 
                     //nota
                     amb.notaEtMv.visibility = View.VISIBLE
-                    amb.notaEtMv.setText(nota.toString())
+
+                    if(nota == null){
+                        amb.notaEtMv.setText("")
+                    }else{
+                        amb.notaEtMv.setText(nota.toString())
+                    }
+
                 }
 
                 //para visualizar detalhes, desativa edição

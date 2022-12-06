@@ -8,7 +8,7 @@ import com.example.moviesmanager.model.database.MovieRoomDaoDatabase
 import com.example.moviesmanager.model.entity.Movie
 import com.example.moviesmanager.view.MainActivity
 
-class MovieRoomController(private val mainActivity: MainActivity) {
+class MovieRoomController(private val mainActivity: MainActivity, private var tipoOrdenacao: String) {
 
     private val movieDaoImpl: MovieRoomDao by lazy {
         Room.databaseBuilder(
@@ -21,16 +21,20 @@ class MovieRoomController(private val mainActivity: MainActivity) {
     fun insertMovie(movie: Movie) {
         Thread{
             movieDaoImpl.createMovie(movie)
-            getMovies()
+            getMovies(tipoOrdenacao)
         }.start()
     }
 
-    fun getMovies() {
+    fun getMovies(tipoOrdenacao: String) {
         object : AsyncTask<Unit, Unit, MutableList<Movie>>() {
 
             override fun doInBackground(vararg p0: Unit?): MutableList<Movie> {
                 val returnList = mutableListOf<Movie>()
-                returnList.addAll(movieDaoImpl.retrieveMovies())
+                if(tipoOrdenacao == "nome"){
+                    returnList.addAll(movieDaoImpl.retrieveMoviesOrderName())
+                }else{
+                    returnList.addAll(movieDaoImpl.retrieveMoviesOrderNota())
+                }
                 return returnList
             }
 
@@ -48,14 +52,14 @@ class MovieRoomController(private val mainActivity: MainActivity) {
     fun editMovie(movie: Movie) {
         Thread{
             movieDaoImpl.updateMovie(movie)
-            getMovies()
+            getMovies(tipoOrdenacao)
         }.start()
     }
 
     fun removeMovie(movie: Movie) {
         Thread{
             movieDaoImpl.deleteMovie(movie)
-            getMovies()
+            getMovies(tipoOrdenacao)
         }.start()
     }
 }

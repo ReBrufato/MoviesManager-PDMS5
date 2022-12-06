@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    //a ordenação será pelo nome por default (variável publica)
+    var tipoOrdenacao: String = "nome"
+
     private val movieslList: MutableList<Movie> = mutableListOf()
 
     private lateinit var movieAdapter: MovieAdapter
@@ -34,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     //controller para o banco
     private val movieController: MovieRoomController by lazy {
-        MovieRoomController(this)
+        MovieRoomController(this, tipoOrdenacao)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.subtitle = "Lista de Filmes"
 
-        populaListaMovies()
+        populaListaMovies(tipoOrdenacao)
 
         movieAdapter = MovieAdapter(this, movieslList)
         amb.moviesLv.adapter = movieAdapter
@@ -96,6 +99,14 @@ class MainActivity : AppCompatActivity() {
                 val intentIntegralActivity = Intent(this,MovieActivity::class.java)
                 marl.launch(intentIntegralActivity)
                 true
+            }R.id.ordenarNome ->{
+                tipoOrdenacao = "nome"
+                populaListaMovies("nome")
+                true
+            }R.id.ordenarNota ->{
+                tipoOrdenacao = "nota"
+                populaListaMovies("nota")
+                true
             }
             else -> {false}
         }
@@ -129,8 +140,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun populaListaMovies(){
-        movieController.getMovies()
+    //popula com banco ou mocado
+    private fun populaListaMovies(tipoOrdenacao: String){
+        movieController.getMovies(tipoOrdenacao)
 
 //        movieslList.add(
 //            Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", "101", false, null, "Ação")
@@ -145,8 +157,7 @@ class MainActivity : AppCompatActivity() {
         var movie1 = Movie(1, "Assalto ao banco central", "2011", null, "Fox filmes", "101", false, null, "Ação")
         var movie2 = Movie(2, "O Pequenino", "2006", null, "Columbia Pictures", "98", false, null, "Comédia")
         var movie3 = Movie(3, "Hannibal", "2001", null, "Universal Studios", "131", true, 7.0, "Crime")
-
- //       movieController.insertMovie(movie1)
+    //    movieController.insertMovie(movie1)
 //        movieController.insertMovie(movie2)
 //        movieController.insertMovie(movie3)
     }
