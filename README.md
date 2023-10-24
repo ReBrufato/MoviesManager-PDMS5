@@ -10,3 +10,5 @@ deve ser único), ano de lançamento, um estúdio ou produtora, um tempo de dura
 minutos), uma flag (para indicar se o filme já foi assistido ou não), uma nota dada pelo usuário e um gênero
 que pode ser romance, aventura, terror etc. Clicando na célula correspondente ao filme na tela principal é
 possível ver todos os seus detalhes. Na tela principal é possível ordernar os filmes por nome ou nota
+
+Em MoviesMAnagerVideo.mp4 é apresentado um vídeo curto do projeto funcionando
