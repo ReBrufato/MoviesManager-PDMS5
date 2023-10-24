@@ -1,5 +1,5 @@
 # MoviesManager
-Projeto realizado na disciplina de Programação de Dispositivos Móveis, utilizando linguagem Kotlin
+Projeto realizado na disciplina de Programação para Dispositivos Móveis, utilizando linguagem Kotlin
 
 O projeto consiste no desenvolvimento de um aplicativo simples de lista com uso de
 persistência. O aplicativo permite criar, apagar e gerenciar filmes da preferência do usuário. O
